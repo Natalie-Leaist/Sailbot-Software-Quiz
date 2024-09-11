@@ -1,32 +1,30 @@
 def bound_to_180(angle):
-    """Bounds the provided angle between [-180, 180) degrees.
-
-    e.g.)
-        bound_to_180(135) = 135.0
-        bound_to_180(200) = -160.0
-
-    Args:
-        angle (float): The input angle in degrees.
-
-    Returns:
-        float: The bounded angle in degrees.
-    """
-    return 0
+    #bound the angle to be with 360 degrees
+    angle %= 360
+    
+    #if the angle is greater than 180, transform into the corresponding negative value
+    if angle >= 180:
+        angle -= 360
+    
+    return angle
 
 
-def is_angle_between(first_angle, middle_angle, second_angle):
-    """Determines whether an angle is between two other angles.
+def is_angle_between(first_angle, middle_angle, third_angle):
+    #bound all angles to 180
+    first_angle = bound_to_180(first_angle)
+    middle_angle = bound_to_180(middle_angle)
+    third_angle = bound_to_180(third_angle)
+    
+    isBetween = False
+    
+    #determine the larger and smaller of the first and third angles, in order to determine if the middle angle lies between
+    larger_angle = max(first_angle, third_angle)
+    smaller_angle = min(first_angle, third_angle)
+    
+    #check if angle is between the two other angles, assuming non-inclusive of endpoints.
+    if smaller_angle < middle_angle and middle_angle < larger_angle:
+        isBetween = True
 
-    e.g.)
-        is_angle_between(0, 45, 90) = True
-        is_angle_between(45, 90, 270) = False
+    return isBetween
 
-    Args:
-        first_angle (float): The first bounding angle in degrees.
-        middle_angle (float): The angle in question in degrees.
-        second_angle (float): The second bounding angle in degrees.
 
-    Returns:
-        bool: True when `middle_angle` is not in the reflex angle of `first_angle` and `second_angle`, false otherwise.
-    """
-    return True
